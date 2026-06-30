@@ -10,7 +10,7 @@
  *   Reemplaza SITE_URL por la URL pública donde subiste el catálogo.
  *   Ej. GitHub Pages: https://TU-USUARIO.github.io/catalogo-fusion/
  */
-var SITE_URL = 'https://cristobalpontigo.github.io/catalogo-fusion/';
+var SITE_URL = 'https://anideout.github.io/Cyber-Station/';
 
 function doGet(e) {
   var template = HtmlService.createTemplateFromFile('Index');
