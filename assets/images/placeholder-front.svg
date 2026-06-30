@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="450">
+      <stop offset="0%" stop-color="#004a8f"/>
+      <stop offset="50%" stop-color="#0076ce"/>
+      <stop offset="100%" stop-color="#005fa3"/>
+    </linearGradient>
+    <linearGradient id="swoosh" x1="0" y1="0" x2="400" y2="450">
+      <stop offset="0%" stop-color="#003366"/>
+      <stop offset="100%" stop-color="#0076ce"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)" rx="8"/>
+  <path d="M0 0 L280 0 Q200 225 0 450 Z" fill="url(#swoosh)" opacity="0.6"/>
+  <text x="40" y="80" fill="white" font-family="Arial,sans-serif" font-size="48" font-weight="bold">Fusion</text>
+  <text x="40" y="120" fill="white" font-family="Arial,sans-serif" font-size="14" opacity="0.8">WAYNE FUELING SYSTEMS</text>
+  <!-- USB -->
+  <rect x="320" y="160" width="30" height="14" fill="#222" rx="2"/>
+  <text x="315" y="195" fill="white" font-size="11" opacity="0.7">USB</text>
+  <!-- COM5/COM6 -->
+  <rect x="380" y="140" width="50" height="30" fill="#333" rx="3" stroke="#555"/>
+  <text x="388" y="185" fill="white" font-size="10" opacity="0.7">COM5</text>
+  <rect x="380" y="200" width="50" height="30" fill="#333" rx="3" stroke="#555"/>
+  <text x="388" y="245" fill="white" font-size="10" opacity="0.7">COM6</text>
+  <!-- STATUS LCD -->
+  <rect x="470" y="155" width="80" height="50" fill="#111" rx="3" stroke="#444"/>
+  <text x="478" y="220" fill="white" font-size="10" opacity="0.7">STATUS</text>
+  <!-- LEDs -->
+  <circle cx="580" cy="170" r="6" fill="#4ade80"/>
+  <text x="565" y="195" fill="white" font-size="9" opacity="0.7">POWER</text>
+  <circle cx="580" cy="210" r="6" fill="#666"/>
+  <text x="568" y="235" fill="white" font-size="9" opacity="0.7">GRIBS</text>
+  <!-- PWR -->
+  <rect x="650" y="160" width="40" height="40" fill="#166534" rx="4" stroke="#4ade80"/>
+  <text x="658" y="215" fill="white" font-size="10" opacity="0.7">PWR</text>
+  <text x="400" y="420" fill="white" font-size="14" opacity="0.4" text-anchor="middle">Vista Frontal  Coloca front.jpg aqu�</text>
+</svg>

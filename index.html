@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de equipamiento interactivo Copec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script type="module">
+    window.__modelViewerReady = (async () => {
+      if (customElements.get('model-viewer')) return;
+      try {
+        await import('./assets/vendor/model-viewer.min.js');
+      } catch (_) {
+        await import('https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js');
+      }
+      await customElements.whenDefined('model-viewer');
+    })();
+  </script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+
+  <header class="header">
+    <div class="header__brand-bar"></div>
+    <div class="header__inner">
+      <a href="#" class="logo">
+        <img src="assets/images/brand/copec-logo.svg" alt="Copec" class="logo__img" width="120" height="30" />
+        <span class="logo__divider"></span>
+        <span class="logo__text">
+          <strong>Catálogo de equipamiento interactivo Copec</strong>
+          <small>Señalización técnica · Patio, POS y redes</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#catalogo" class="nav__link">Productos</a>
+        <button type="button" class="nav__link nav__link--btn" id="openEditorBtn">Editor de puntos</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Equipamiento Copec</p>
+        <h1 class="hero__title">Catálogo de equipamiento <span class="gradient-text">interactivo Copec</span></h1>
+        <p class="hero__desc">
+          Explora controladores, surtidores, terminales POS, switches y firewalls con señalización en vivo.
+          Cada puerto, interfaz y componente está documentado para operación y capacitación.
+        </p>
+        <ul class="hero__steps">
+          <li><span>1</span> Activa la señalización</li>
+          <li><span>2</span> Click en un marcador ◎</li>
+          <li><span>3</span> Ve la ficha del puerto</li>
+          <li><span>4</span> Prueba el modo capacitación</li>
+        </ul>
+      </div>
+      <div class="hero__visual" id="heroSignal"></div>
+    </section>
+
+    <section class="filters" id="catalogo">
+      <div class="filters__inner">
+        <div class="filters__top">
+          <div class="search-box">
+            <svg class="search-box__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="searchInput" class="search-box__input" placeholder="Buscar equipo, puerto, COM, LAN, WAN, USB..." />
+          </div>
+          <p class="filters__count"><strong id="productCount">0</strong> equipos</p>
+        </div>
+        <div class="filter-chips" id="categoryFilters"></div>
+        <div class="filter-chips filter-chips--manufacturers" id="manufacturerFilters"></div>
+      </div>
+    </section>
+
+    <section class="catalog">
+      <div class="catalog__grid" id="catalogGrid"></div>
+      <p class="catalog__empty hidden" id="emptyState">No se encontraron productos.</p>
+    </section>
+  </main>
+
+  <dialog class="modal" id="productModal">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__container">
+      <button class="modal__close" data-close aria-label="Cerrar">&times;</button>
+      <div class="modal__body" id="modalContent"></div>
+    </div>
+  </dialog>
+
+  <dialog class="lightbox" id="docLightbox">
+    <div class="lightbox__backdrop" data-close></div>
+    <div class="lightbox__container">
+      <button class="lightbox__close" data-close aria-label="Cerrar">&times;</button>
+      <img class="lightbox__img" id="docLightboxImg" alt="" />
+      <p class="lightbox__caption" id="docLightboxCaption"></p>
+    </div>
+  </dialog>
+
+  <dialog class="pdf-viewer" id="pdfViewer">
+    <div class="pdf-viewer__backdrop" data-close></div>
+    <div class="pdf-viewer__shell">
+      <header class="pdf-viewer__header">
+        <h3 id="pdfViewerTitle">Manual</h3>
+        <button class="pdf-viewer__close" data-close aria-label="Cerrar">&times;</button>
+      </header>
+      <iframe class="pdf-viewer__frame" id="pdfViewerFrame" title="Visor de manual PDF"></iframe>
+    </div>
+  </dialog>
+
+  <dialog class="training-modal" id="trainingModal">
+    <div class="training-modal__backdrop" data-close></div>
+    <div class="training-modal__shell">
+      <header class="training-modal__header">
+        <div>
+          <h3 id="trainingTitle">Modo capacitación</h3>
+          <p id="trainingPrompt">Encuentra el componente indicado</p>
+        </div>
+        <div class="training-modal__stats">
+          <span id="trainingScore">0 aciertos</span>
+          <span id="trainingProgress">0 preguntas</span>
+        </div>
+        <button class="training-modal__close" id="trainingClose" aria-label="Cerrar">&times;</button>
+      </header>
+      <div class="training-modal__body">
+        <div id="trainingStage"></div>
+        <p class="training-feedback" id="trainingFeedback"></p>
+      </div>
+      <footer class="training-modal__footer">
+        <button type="button" class="btn btn--sm" id="trainingRestart">Reiniciar</button>
+        <button type="button" class="btn btn--sm btn--primary" data-close>Cerrar</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog class="editor-picker" id="editorPicker">
+    <div class="editor-picker__backdrop" data-close></div>
+    <div class="editor-picker__shell">
+      <header class="editor-picker__header">
+        <h3>Elige un producto para editar</h3>
+        <button class="editor-picker__close" data-close aria-label="Cerrar">&times;</button>
+      </header>
+      <div class="editor-picker__list" id="editorPickerList"></div>
+    </div>
+  </dialog>
+
+  <footer class="footer">
+    <img src="assets/images/brand/copec-logo.svg" alt="Copec" class="footer__logo" width="96" height="24" />
+    <p>Catálogo de equipamiento interactivo Copec · Abre con <strong>INICIAR.bat</strong> (recomendado para modelos 3D)</p>
+  </footer>
+
+  <div id="editorPanel" class="editor-panel hidden" aria-hidden="true">
+    <header class="editor-panel__header">
+      <div class="editor-panel__title">
+        <h2>Editor de puntos</h2>
+        <p>Coloca marcadores por cara del modelo 3D o sobre fotos 2D</p>
+      </div>
+      <div class="editor-panel__controls">
+        <label class="editor-panel__select-wrap">
+          <span>Producto</span>
+          <select id="editorProductSelect" class="editor-panel__select"></select>
+        </label>
+        <button type="button" class="signal-toggle" id="editorAddMode">
+          <span class="signal-toggle__icon">+</span> Agregar punto
+        </button>
+        <button type="button" class="btn btn--sm btn--primary" id="editorSave">Guardar</button>
+        <button type="button" class="btn btn--sm" id="editorUndo" disabled title="Ctrl+Z">Deshacer</button>
+        <button type="button" class="btn btn--sm" id="editorImport">Importar JSON</button>
+        <input type="file" id="editorImportFile" accept="application/json,.json" hidden />
+        <button type="button" class="btn btn--sm" id="editorExport">Exportar JSON</button>
+        <button type="button" class="btn btn--sm btn--danger" id="editorReset">Restaurar</button>
+        <span class="editor-dirty hidden" id="editorDirty">Sin guardar</span>
+        <button type="button" class="editor-panel__close" id="editorClose" aria-label="Cerrar editor">&times;</button>
+      </div>
+    </header>
+    <div class="editor-panel__body" id="editorPanelBody"></div>
+    <div class="editor-panel__export">
+      <label for="editorExportOutput">Código para pegar en <code>products.js</code> (campo <code>markers</code>)</label>
+      <textarea id="editorExportOutput" class="editor-export" rows="6" readonly placeholder="Exporta para ver el JSON..."></textarea>
+    </div>
+    <div class="editor-toast" id="editorToast"></div>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/marker-store.js"></script>
+  <script src="js/marker-3d.js"></script>
+  <script src="js/spin360-viewer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/training.js"></script>
+</body>
+</html>

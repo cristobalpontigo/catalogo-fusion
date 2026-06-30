@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; background: #0a1628; }
+      #catalogo-frame {
+        border: 0;
+        width: 100%;
+        height: 100vh;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      id="catalogo-frame"
+      src="<?= siteUrl ?><?= product ? ('?product=' + product) : '' ?>"
+      allow="fullscreen; xr-spatial-tracking; accelerometer; gyroscope; magnetometer"
+      allowfullscreen>
+    </iframe>
+  </body>
+</html>
